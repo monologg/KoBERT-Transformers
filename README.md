@@ -41,7 +41,7 @@ class BertEmbeddings(nn.Module):
         self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)
 ```
 
-그러나 `v.2.9.0`에서 DistilBert, Albert 등에는 이 이슈가 해결되지 않아 직접 PR을 올려 처리하였고 ([관련 PR #3965](https://github.com/huggingface/transformers/pull/3965)), **`v2.9.1`에 최종적으로 반영되어 배포되었습니다.**
+그러나 `v.2.9.0`에서 `DistilBERT`, `ALBERT` 등에는 이 이슈가 해결되지 않아 직접 PR을 올려 처리하였고 ([관련 PR #3965](https://github.com/huggingface/transformers/pull/3965)), **`v2.9.1`에 최종적으로 반영되어 배포되었습니다.**
 
 아래는 이전과 현재 버전의 차이점을 보여주는 코드입니다.
 
@@ -95,7 +95,7 @@ Embedding(8002, 768, padding_idx=1)
 >>> [2, 4958, 6855, 2046, 7088, 1050, 7843, 54, 3]
 ```
 
-## Kobert-Transformers (Python library)
+## Kobert-Transformers (Pip library)
 
 [![PyPI](https://img.shields.io/pypi/v/kobert-transformers)](https://pypi.org/project/kobert-transformers/)
 [![license](https://img.shields.io/badge/license-Apache%202.0-red)](https://github.com/monologg/DistilKoBERT/blob/master/LICENSE)
