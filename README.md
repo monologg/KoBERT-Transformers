@@ -1,6 +1,6 @@
 # KoBERT-Transformers
 
-KoBERT on 🤗 Huggingface Transformers 🤗
+`KoBERT` & `DistilKoBERT` on 🤗 Huggingface Transformers 🤗
 
 KoBERT 모델은 [공식 레포](https://github.com/SKTBrain/KoBERT)의 것과 동일합니다. 본 레포는 **Huggingface tokenizer의 모든 API를 지원**하기 위해서 제작되었습니다.
 
