@@ -28,7 +28,7 @@ class BertEmbeddings(nn.Module):
         self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)
 ```
 
-그러나 Sentencepiece의 경우 기본값으로 `pad_token_id=1`, `unk_token_id=0`으로 설정이 되어 있고 (이는 KoBERT도 동일), 이를 그대로 사용하는 BertModel의 경우 문제가 생기게 됩니다.
+그러나 Sentencepiece의 경우 기본값으로 `pad_token_id=1`, `unk_token_id=0`으로 설정이 되어 있고 (이는 KoBERT도 동일), 이를 그대로 사용하는 BertModel의 경우 원치 않은 결과를 가져올 수 있습니다.
 
 Huggingface에서도 최근에 해당 이슈를 인지하여 이를 수정하여 `v2.9.0`에 반영하였습니다. ([관련 PR #3793](https://github.com/huggingface/transformers/pull/3793)) config에 `pad_token_id=1` 을 추가 가능하여 이를 해결할 수 있게 하였습니다.
 
