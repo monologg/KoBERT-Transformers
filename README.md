@@ -103,7 +103,7 @@ Embedding(8002, 768, padding_idx=1)
 
 - `tokenization_kobert.py`를 랩핑한 파이썬 라이브러리
 - KoBERT, DistilKoBERT를 Huggingface Transformers 라이브러리 형태로 제공
-- `v0.4.0`에서는 `transformers v2.9.1` 이상으로 기본 설치합니다.
+- `v0.4.2`에서는 `transformers v2.9.1` 이상으로 기본 설치합니다.
 
 ### Install Kobert-Transformers
 
@@ -116,7 +116,7 @@ $ pip3 install kobert-transformers
 ```python
 >>> import torch
 >>> from kobert_transformers import get_kobert_model, get_distilkobert_model
->>> model = get_kobert_model()
+>>> model = get_kobert_model()  # if you want to use a cached pretrained model, use `get_kobert_model("./cache_dir")`
 >>> model.eval()
 >>> input_ids = torch.LongTensor([[31, 51, 99], [15, 5, 0]])
 >>> attention_mask = torch.LongTensor([[1, 1, 1], [1, 1, 0]])
@@ -131,7 +131,7 @@ tensor([[-0.2461,  0.2428,  0.2590,  ..., -0.4861, -0.0731,  0.0756],
 
 ```python
 >>> from kobert_transformers import get_tokenizer
->>> tokenizer = get_tokenizer()
+>>> tokenizer = get_tokenizer()  # if you want to use a cached tokenizer moddel, use `get_tokenizer("./cache_dir")`
 >>> tokenizer.tokenize("[CLS] 한국어 모델을 공유합니다. [SEP]")
 ['[CLS]', '▁한국', '어', '▁모델', '을', '▁공유', '합니다', '.', '[SEP]']
 >>> tokenizer.convert_tokens_to_ids(['[CLS]', '▁한국', '어', '▁모델', '을', '▁공유', '합니다', '.', '[SEP]'])
