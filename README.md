@@ -103,7 +103,7 @@ Embedding(8002, 768, padding_idx=1)
 
 - `tokenization_kobert.py`를 랩핑한 파이썬 라이브러리
 - KoBERT, DistilKoBERT를 Huggingface Transformers 라이브러리 형태로 제공
-- `v0.5.0`에서는 `transformers v3.0` 이상으로 기본 설치합니다. (`transformers v4.0` 까지는 이슈 없이 사용 가능)
+- `v0.5.1`에서는 `transformers v3.0` 이상으로 기본 설치합니다. (`transformers v4.0` 까지는 이슈 없이 사용 가능)
 
 ### Install Kobert-Transformers
 
