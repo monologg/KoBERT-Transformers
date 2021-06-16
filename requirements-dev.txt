@@ -1,0 +1,7 @@
+# for clean code :)
+isort==5.7.0
+black==20.8b1
+flake8==3.8.4
+
+# for safe code :)
+pytest==6.2.1

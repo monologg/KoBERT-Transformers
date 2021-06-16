@@ -128,7 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#####
+# Custom
 .vscode/
 .idea/
 .DS_Store
+test.ipynb
