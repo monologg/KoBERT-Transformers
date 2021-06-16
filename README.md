@@ -8,8 +8,8 @@ KoBERT 모델은 [공식 레포](https://github.com/SKTBrain/KoBERT)의 것과 �
 
 ### 🙏 TL;DR
 
-1. `transformers` 는 `v2.9.1` 이상을 반드시 설치!
-2. `tokenizer`는 본 레포의 `tokenization_kobert.py`를 사용!
+1. `transformers` 는 `v3.0` 이상을 반드시 설치!
+2. `tokenizer`는 본 레포의 `kobert_transformers/tokenization_kobert.py`를 사용!
 
 ### 1. Tokenizer 호환
 
@@ -71,7 +71,7 @@ Embedding(8002, 768, padding_idx=1)
 ### Dependencies
 
 - torch>=1.1.0
-- transformers>=2.9.1
+- transformers>=3,<5
 
 ### How to Use
 
@@ -81,7 +81,7 @@ Embedding(8002, 768, padding_idx=1)
 >>> distilbert_model = DistilBertModel.from_pretrained('monologg/distilkobert')
 ```
 
-**Tokenizer를 사용하려면, 루트 디렉토리의 `tokenization_kobert.py` 파일을 복사한 후, `KoBertTokenizer`를 임포트하면 됩니다.**
+**Tokenizer를 사용하려면, [`kobert_transformers/tokenization_kobert.py`](https://github.com/monologg/KoBERT-Transformers/blob/master/kobert_transformers/tokenization_kobert.py) 파일을 복사한 후, `KoBertTokenizer`를 임포트하면 됩니다.**
 
 - KoBERT와 DistilKoBERT 모두 동일한 토크나이저를 사용합니다.
 - **기존 KoBERT의 경우 Special Token이 제대로 분리되지 않는 이슈**가 있어서 해당 부분을 수정하여 반영하였습니다. ([Issue link](https://github.com/SKTBrain/KoBERT/issues/11))
@@ -103,12 +103,12 @@ Embedding(8002, 768, padding_idx=1)
 
 - `tokenization_kobert.py`를 랩핑한 파이썬 라이브러리
 - KoBERT, DistilKoBERT를 Huggingface Transformers 라이브러리 형태로 제공
-- `v0.4.0`에서는 `transformers v2.9.1` 이상으로 기본 설치합니다.
+- `v0.5.0`에서는 `transformers v3.0` 이상으로 기본 설치합니다. (`transformers v4.0` 까지는 이슈 없이 사용 가능)
 
 ### Install Kobert-Transformers
 
 ```bash
-$ pip3 install kobert-transformers
+pip3 install kobert-transformers
 ```
 
 ### How to Use
