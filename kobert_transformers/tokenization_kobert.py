@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Tokenization classes for KoBert model."""
+""" Tokenization classes for KoBERT model """
 
 
 import logging
@@ -22,76 +22,79 @@ from shutil import copyfile
 
 from transformers import PreTrainedTokenizer
 
-
 logger = logging.getLogger(__name__)
 
-VOCAB_FILES_NAMES = {"vocab_file": "tokenizer_78b3253a26.model",
-                     "vocab_txt": "vocab.txt"}
+VOCAB_FILES_NAMES = {
+    "vocab_file": "tokenizer_78b3253a26.model",
+    "vocab_txt": "vocab.txt",
+}
 
 PRETRAINED_VOCAB_FILES_MAP = {
     "vocab_file": {
         "monologg/kobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/kobert/tokenizer_78b3253a26.model",
         "monologg/kobert-lm": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/kobert-lm/tokenizer_78b3253a26.model",
-        "monologg/distilkobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/distilkobert/tokenizer_78b3253a26.model"
+        "monologg/distilkobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/distilkobert/tokenizer_78b3253a26.model",
     },
     "vocab_txt": {
         "monologg/kobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/kobert/vocab.txt",
         "monologg/kobert-lm": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/kobert-lm/vocab.txt",
-        "monologg/distilkobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/distilkobert/vocab.txt"
-    }
+        "monologg/distilkobert": "https://s3.amazonaws.com/models.huggingface.co/bert/monologg/distilkobert/vocab.txt",
+    },
 }
 
 PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES = {
     "monologg/kobert": 512,
     "monologg/kobert-lm": 512,
-    "monologg/distilkobert": 512
+    "monologg/distilkobert": 512,
 }
 
 PRETRAINED_INIT_CONFIGURATION = {
     "monologg/kobert": {"do_lower_case": False},
     "monologg/kobert-lm": {"do_lower_case": False},
-    "monologg/distilkobert": {"do_lower_case": False}
+    "monologg/distilkobert": {"do_lower_case": False},
 }
 
-SPIECE_UNDERLINE = u'▁'
+SPIECE_UNDERLINE = "▁"
 
 
 class KoBertTokenizer(PreTrainedTokenizer):
     """
-        SentencePiece based tokenizer. Peculiarities:
-            - requires `SentencePiece <https://github.com/google/sentencepiece>`_
+    SentencePiece based tokenizer. Peculiarities:
+        - requires `SentencePiece <https://github.com/google/sentencepiece>`_
     """
+
     vocab_files_names = VOCAB_FILES_NAMES
     pretrained_vocab_files_map = PRETRAINED_VOCAB_FILES_MAP
     pretrained_init_configuration = PRETRAINED_INIT_CONFIGURATION
     max_model_input_sizes = PRETRAINED_POSITIONAL_EMBEDDINGS_SIZES
 
     def __init__(
-            self,
-            vocab_file,
-            vocab_txt,
-            do_lower_case=False,
-            remove_space=True,
-            keep_accents=False,
-            unk_token="[UNK]",
-            sep_token="[SEP]",
-            pad_token="[PAD]",
-            cls_token="[CLS]",
-            mask_token="[MASK]",
-            **kwargs):
+        self,
+        vocab_file,
+        vocab_txt,
+        do_lower_case=False,
+        remove_space=True,
+        keep_accents=False,
+        unk_token="[UNK]",
+        sep_token="[SEP]",
+        pad_token="[PAD]",
+        cls_token="[CLS]",
+        mask_token="[MASK]",
+        **kwargs,
+    ):
         super().__init__(
             unk_token=unk_token,
             sep_token=sep_token,
             pad_token=pad_token,
             cls_token=cls_token,
             mask_token=mask_token,
-            **kwargs
+            **kwargs,
         )
 
         # Build vocab
         self.token2idx = dict()
         self.idx2token = []
-        with open(vocab_txt, 'r', encoding='utf-8') as f:
+        with open(vocab_txt, "r", encoding="utf-8") as f:
             for idx, token in enumerate(f):
                 token = token.strip()
                 self.token2idx[token] = idx
@@ -100,8 +103,10 @@ class KoBertTokenizer(PreTrainedTokenizer):
         try:
             import sentencepiece as spm
         except ImportError:
-            logger.warning("You need to install SentencePiece to use KoBertTokenizer: https://github.com/google/sentencepiece"
-                           "pip install sentencepiece")
+            logger.warning(
+                "You need to install SentencePiece to use KoBertTokenizer: https://github.com/google/sentencepiece"
+                "pip install sentencepiece"
+            )
 
         self.do_lower_case = do_lower_case
         self.remove_space = remove_space
@@ -129,8 +134,10 @@ class KoBertTokenizer(PreTrainedTokenizer):
         try:
             import sentencepiece as spm
         except ImportError:
-            logger.warning("You need to install SentencePiece to use KoBertTokenizer: https://github.com/google/sentencepiece"
-                           "pip install sentencepiece")
+            logger.warning(
+                "You need to install SentencePiece to use KoBertTokenizer: https://github.com/google/sentencepiece"
+                "pip install sentencepiece"
+            )
         self.sp_model = spm.SentencePieceProcessor()
         self.sp_model.Load(self.vocab_file)
 
@@ -142,21 +149,17 @@ class KoBertTokenizer(PreTrainedTokenizer):
         outputs = outputs.replace("``", '"').replace("''", '"')
 
         if not self.keep_accents:
-            outputs = unicodedata.normalize('NFKD', outputs)
+            outputs = unicodedata.normalize("NFKD", outputs)
             outputs = "".join([c for c in outputs if not unicodedata.combining(c)])
         if self.do_lower_case:
             outputs = outputs.lower()
 
         return outputs
 
-    def _tokenize(self, text, return_unicode=True, sample=False):
-        """ Tokenize a string. """
+    def _tokenize(self, text):
+        """Tokenize a string."""
         text = self.preprocess_text(text)
-
-        if not sample:
-            pieces = self.sp_model.EncodeAsPieces(text)
-        else:
-            pieces = self.sp_model.SampleEncodeAsPieces(text, 64, 0.1)
+        pieces = self.sp_model.encode(text, out_type=str)
         new_pieces = []
         for piece in pieces:
             if len(piece) > 1 and piece[-1] == str(",") and piece[-2].isdigit():
@@ -177,7 +180,7 @@ class KoBertTokenizer(PreTrainedTokenizer):
         """ Converts a token (str/unicode) in an id using the vocab. """
         return self.token2idx.get(token, self.token2idx[self.unk_token])
 
-    def _convert_id_to_token(self, index, return_unicode=True):
+    def _convert_id_to_token(self, index):
         """Converts an index (integer) in a token (string/unicode) using the vocab."""
         return self.idx2token[index]
 
@@ -220,7 +223,12 @@ class KoBertTokenizer(PreTrainedTokenizer):
                     "You should not supply a second sequence if the provided sequence of "
                     "ids is already formated with special tokens for the model."
                 )
-            return list(map(lambda x: 1 if x in [self.sep_token_id, self.cls_token_id] else 0, token_ids_0))
+            return list(
+                map(
+                    lambda x: 1 if x in [self.sep_token_id, self.cls_token_id] else 0,
+                    token_ids_0,
+                )
+            )
 
         if token_ids_1 is not None:
             return [1] + ([0] * len(token_ids_0)) + [1] + ([0] * len(token_ids_1)) + [1]
@@ -241,8 +249,8 @@ class KoBertTokenizer(PreTrainedTokenizer):
         return len(cls + token_ids_0 + sep) * [0] + len(token_ids_1 + sep) * [1]
 
     def save_vocabulary(self, save_directory):
-        """ Save the sentencepiece vocabulary (copy original file) and special tokens file
-            to a directory.
+        """Save the sentencepiece vocabulary (copy original file) and special tokens file
+        to a directory.
         """
         if not os.path.isdir(save_directory):
             logger.error("Vocabulary path ({}) should be a directory".format(save_directory))
