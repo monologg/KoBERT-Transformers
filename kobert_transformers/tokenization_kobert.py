@@ -82,14 +82,6 @@ class KoBertTokenizer(PreTrainedTokenizer):
         mask_token="[MASK]",
         **kwargs,
     ):
-        super().__init__(
-            unk_token=unk_token,
-            sep_token=sep_token,
-            pad_token=pad_token,
-            cls_token=cls_token,
-            mask_token=mask_token,
-            **kwargs,
-        )
 
         # Build vocab
         self.token2idx = dict()
@@ -116,6 +108,15 @@ class KoBertTokenizer(PreTrainedTokenizer):
 
         self.sp_model = spm.SentencePieceProcessor()
         self.sp_model.Load(vocab_file)
+
+        super().__init__(
+            unk_token=unk_token,
+            sep_token=sep_token,
+            pad_token=pad_token,
+            cls_token=cls_token,
+            mask_token=mask_token,
+            **kwargs,
+        )
 
     @property
     def vocab_size(self):
