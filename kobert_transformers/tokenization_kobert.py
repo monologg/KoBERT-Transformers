@@ -82,7 +82,6 @@ class KoBertTokenizer(PreTrainedTokenizer):
         mask_token="[MASK]",
         **kwargs,
     ):
-
         # Build vocab
         self.token2idx = dict()
         self.idx2token = []
@@ -178,7 +177,7 @@ class KoBertTokenizer(PreTrainedTokenizer):
         return new_pieces
 
     def _convert_token_to_id(self, token):
-        """ Converts a token (str/unicode) in an id using the vocab. """
+        """Converts a token (str/unicode) in an id using the vocab."""
         return self.token2idx.get(token, self.token2idx[self.unk_token])
 
     def _convert_id_to_token(self, index):
