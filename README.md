@@ -1,15 +1,17 @@
 # KoBERT-Transformers
 
-`KoBERT` & `DistilKoBERT` on 🤗 Huggingface Transformers 🤗
-
-KoBERT 모델은 [공식 레포](https://github.com/SKTBrain/KoBERT)의 것과 동일합니다. 본 레포는 **Huggingface tokenizer의 모든 API를 지원**하기 위해서 제작되었습니다.
-
 ## **⚠️ Deprecated (2024.08.21) ⚠️**
 
 - 초창기 transformers (4년 전) 에서는 custom code를 이용한 Auto mapping이 불가하여 파이썬 라이브러리 형태로 제공하였습니다.
 - `trust_remote_code=True` 옵션을 통해 `AutoModel`, `AutoTokenizer`로 바로 호출이 가능하게 수정하였고, 이에 따라 해당 라이브러리는 더 이상 유지보수하지 않을 예정입니다.
   - https://huggingface.co/monologg/kobert
   - https://huggingface.co/monologg/distilkobert
+
+---
+
+`KoBERT` & `DistilKoBERT` on 🤗 Huggingface Transformers 🤗
+
+KoBERT 모델은 [공식 레포](https://github.com/SKTBrain/KoBERT)의 것과 동일합니다. 본 레포는 **Huggingface tokenizer의 모든 API를 지원**하기 위해서 제작되었습니다.
 
 ## Changes
 
